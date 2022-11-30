@@ -24,9 +24,11 @@ def parser(new_sentence):
 
 
 # No precedence in Lojban
-# statement:    <stmt> -> <expr> | <assignment> | <conditional>
+# statement:    <stmt> -> <expr> | <assignment> | <conditional> | <loop>
 
-# conditional:  <conditional> -> if <logic>, ( <expr> | <assignment> )
+# loop:         <loop> -> ganfauke <logic>, <assignment>
+
+# conditional:  <conditional> -> if <logic>, <statement>
 # logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
 
 # assignment:   <assignment> -> <var> <equal> <expr>
@@ -35,7 +37,6 @@ def parser(new_sentence):
 # number:       <num> -> <digit> | <digit><num>
 # digit:        <digit> -> 0 - 9
 
-
 def statement():
     print("Enter <statement>")
 
@@ -43,10 +44,29 @@ def statement():
         assignment()
     elif next_token == "if":
         conditional()
+    elif next_token == "loop":
+        loop()
     else:
         expression()
 
     print("Exit <statement>")
+
+
+def loop():
+    print("Enter <loop>")
+
+    # Pass by loop
+    lex()
+    logic_expression()
+
+    if next_token == ",":
+        lex()
+        assignment()
+    else:
+        print("Loop error: Missing comma")
+        error()
+
+    print("Exit <loop>")
 
 
 def conditional():

@@ -20,6 +20,8 @@ index = 0
 global var_count
 var_count = 0
 
+global num1, num2, op
+
 
 def compiler(sentence_tokens, sentence_lexemes):
     global token_sentence, lexeme_sentence, index
@@ -33,7 +35,9 @@ def compiler(sentence_tokens, sentence_lexemes):
 
 
 # No precedence in Lojban
-# statement:    <stmt> -> <expr> | <assignment> | <conditional>
+# statement:    <stmt> -> <expr> | <assignment> | <conditional> | <loop>
+
+# loop:         <loop> -> ganfauke <logic>, <assignment>
 
 # conditional:  <conditional> -> if <logic>, <statement>
 # logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
@@ -49,9 +53,28 @@ def statement():
         assignment()
     elif next_token == "if":
         conditional()
+    elif next_token == "loop":
+        loop()
     else:
         num = expression()
         print("Value of expression is " + str(num))
+
+
+def loop():
+    global num1, num2, op
+    # Pass by loop
+    lex()
+    value = logic_expression()
+    lex()
+
+    print(num1)
+    print(num2)
+    print(op)
+    print(value)
+
+#    while value:
+#        statement()
+#        value = logical_calculate(num1, num2, op)
 
 
 def conditional():
@@ -59,13 +82,13 @@ def conditional():
     lex()
     value = logic_expression()
     lex()
-    print("The expression is " + str(value))
 
     if value:
         statement()
 
 
 def logic_expression():
+    global num1, num2, op
     value = False
     num1 = factor()
 

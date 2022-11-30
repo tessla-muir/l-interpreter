@@ -4,7 +4,7 @@ numbers = ['pa', 're', 'ci', 'vo', 'mu', 'xa', 'ze', 'bi', 'so', 'no']
 operations = ["su'i", "vu'u", "pi'i", "division"]
 # me'i is less than, za'u is more than, du is equal, na'ebo is not equal
 logical_operations = ["me'i", "za'u", "du", "na'ebo"]
-words = ["\n", "bai"]  # bai is if
+words = ["\n", "bai", "ganfauke"]  # bai is if, ganfauke is for while loops
 symbols = ","
 keywords = numbers + operations + logical_operations + words
 
@@ -28,6 +28,8 @@ def lexer(sentence_array):
             array.append(",")
         elif contains(word, logical_operations):
             array.append("logic_op")
+        elif word == "ganfauke":
+            array.append("loop")
         else:
             if len(word) > 0:
                 array.append("var")
