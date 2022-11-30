@@ -33,10 +33,12 @@ def compiler(sentence_tokens, sentence_lexemes):
 
 
 # No precedence in Lojban
-# statement:    <stmt> -> <expr> | <assignment>
+# statement:    <stmt> -> <expr> | <assignment> | <conditional>
+
+# conditional:  <conditional> -> if <logic_expr>, ( <logic> | <assignment> )
+# logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
 
 # assignment:   <assignment> -> <var> <equal> <expr>
-
 # expression:   <expr> -> <factor> [(+ | - | * | /) factor]
 # factor:       <factor> -> <num> | <expr> | <var>
 # number:       <num> -> <digit> | <digit><num>
@@ -45,9 +47,43 @@ def compiler(sentence_tokens, sentence_lexemes):
 def statement():
     if next_token == "var" and peek("equal"):
         assignment()
+    elif next_token == "if":
+        conditional()
     else:
         num = expression()
         print("Value of expression is " + str(num))
+
+
+def conditional():
+    # Pass by the if and comma
+    lex()
+    lex()
+    value = logic_expression()
+    print("The expression is " + str(value))
+
+
+def logic_expression():
+    value = False
+    num1 = factor()
+
+    if next_token == "logic_op" or next_token == "equal":
+        op = next_lexeme
+        lex()
+        num2 = factor()
+        value = logical_calculate(num1, num2, op)
+
+    return value
+
+
+def logical_calculate(num1, num2, op):
+    if op == "du":
+        return num1 == num2
+    elif op == "na'ebo":
+        return num1 != num2
+    elif op == "me'i":
+        return num1 < num2
+    elif op == "za'u":
+        return num1 > num2
 
 
 def assignment():

@@ -49,6 +49,8 @@ def statement():
 
 
 def conditional():
+    print("Enter conditional")
+
     # Pass by the if
     lex()
     if next_token == ",":
@@ -57,6 +59,8 @@ def conditional():
     else:
         print("Conditional error: missing comma")
         error()
+
+    print("Exit <conditional>")
 
 
 def logic_expression():
