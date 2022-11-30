@@ -50,7 +50,7 @@ def statement():
 
 
 def conditional():
-    print("Enter conditional")
+    print("Enter <conditional>")
 
     # Pass by the if
     lex()
