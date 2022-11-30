@@ -57,8 +57,8 @@ def statement():
 def conditional():
     # Pass by the if and comma
     lex()
-    lex()
     value = logic_expression()
+    lex()
     print("The expression is " + str(value))
 
 

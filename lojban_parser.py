@@ -53,9 +53,11 @@ def conditional():
 
     # Pass by the if
     lex()
+    logic_expression()
+
     if next_token == ",":
+        print("yeet")
         lex()
-        logic_expression()
     else:
         print("Conditional error: missing comma")
         error()
