@@ -2,9 +2,9 @@
 # https://lojban.org/publications/reference_grammar/chapter18.html
 numbers = ['pa', 're', 'ci', 'vo', 'mu', 'xa', 'ze', 'bi', 'so', 'no']
 operations = ["su'i", "vu'u", "pi'i", "division"]
-# me'i is less than, za'u is more than, dunli is equal, na'ebo is not equal
-logical_operations = ["me'i", "za'u", "dunli", "na'ebo"]
-words = ["\n", "du", "bai"]  # du is equal, bai is if
+# me'i is less than, za'u is more than, du is equal, na'ebo is not equal
+logical_operations = ["me'i", "za'u", "du", "na'ebo"]
+words = ["\n", "bai"]  # bai is if
 symbols = ","
 keywords = numbers + operations + logical_operations + words
 
@@ -15,11 +15,7 @@ def scanner(string):
     word = ""
     index = 0
     for char in string:
-        if word == "d" and string[index+1] == "n":
-            word += "un"
-        elif word == "dun" and char == 'n':
-            continue
-        elif char != " ":
+        if char != " ":
             word += char
 
         if index + 1 < len(string):

@@ -1,5 +1,4 @@
 import lojban_compiler
-import lojban_parser
 from lojban_lexer import *
 from lojban_parser import parser
 

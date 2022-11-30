@@ -64,7 +64,7 @@ def logic_expression():
 
     factor()
 
-    if next_token == "logic_op":
+    if next_token == "logic_op" or next_token == "equal":
         lex()
         factor()
     else:
