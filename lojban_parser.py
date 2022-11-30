@@ -25,7 +25,7 @@ def parser(new_sentence):
 # No precedence in Lojban
 # statement:    <stmt> -> <expr> | <assignment> | <conditional>
 
-# conditional:  <conditional> -> if <logic_expr>, ( <logic> | <assignment> )
+# conditional:  <conditional> -> if <logic>, ( <expr> | <assignment> )
 # logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
 
 # assignment:   <assignment> -> <var> <equal> <expr>
@@ -56,10 +56,10 @@ def conditional():
     logic_expression()
 
     if next_token == ",":
-        print("yeet")
         lex()
+        statement()
     else:
-        print("Conditional error: missing comma")
+        print("Conditional error: Missing comma")
         error()
 
     print("Exit <conditional>")

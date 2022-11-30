@@ -35,7 +35,7 @@ def compiler(sentence_tokens, sentence_lexemes):
 # No precedence in Lojban
 # statement:    <stmt> -> <expr> | <assignment> | <conditional>
 
-# conditional:  <conditional> -> if <logic_expr>, ( <logic> | <assignment> )
+# conditional:  <conditional> -> if <logic>, <statement>
 # logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
 
 # assignment:   <assignment> -> <var> <equal> <expr>
@@ -60,6 +60,9 @@ def conditional():
     value = logic_expression()
     lex()
     print("The expression is " + str(value))
+
+    if value:
+        statement()
 
 
 def logic_expression():
