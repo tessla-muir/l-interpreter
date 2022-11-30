@@ -1,7 +1,5 @@
 import sys
 
-global has_error
-has_error = False
 global token_sentence
 global next_token
 global index
@@ -10,28 +8,27 @@ index = 0
 
 def parser(new_sentence):
     print("Parsing!")
-    global token_sentence, next_token, has_error, index
+    global token_sentence, next_token, index
     token_sentence = new_sentence
     lex()
     statement()
 
-    if not has_error and next_token != "END":
+    if next_token != "END":
         print("Interpret error: Expected no other tokens!")
         error()
         return
 
     # Reset values
-    has_error = False
     index = 0
 
 
 # No precedence in Lojban
 # statement:    <stmt> -> <expr> | <assignment> | <conditional>
 
-# conditional:  <conditional> -> if <logic_expr>
+# conditional:  <conditional> -> if <logic_expr>, ( <logic> | <assignment> )
+# logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
 
 # assignment:   <assignment> -> <var> <equal> <expr>
-
 # expression:   <expr> -> <factor> [(+ | - | * | /) factor]
 # factor:       <factor> -> <num> | <expr> | <var>
 # number:       <num> -> <digit> | <digit><num>
@@ -43,10 +40,38 @@ def statement():
 
     if next_token == "var" and peek("equal"):
         assignment()
+    elif next_token == "if":
+        conditional()
     else:
         expression()
 
     print("Exit <statement>")
+
+
+def conditional():
+    # Pass by the if
+    lex()
+    if next_token == ",":
+        lex()
+        logic_expression()
+    else:
+        print("Conditional error: missing comma")
+        error()
+
+
+def logic_expression():
+    print("Enter <logic>")
+
+    factor()
+
+    if next_token == "logic_op":
+        lex()
+        factor()
+    else:
+        print("Logic error: Not valid expression")
+        error()
+
+    print("Exit <logic>")
 
 
 def assignment():
@@ -77,7 +102,6 @@ def expression():
     factor()
 
     while next_token == "op":
-        print("Operator!")
         lex()
         factor()
 
@@ -119,8 +143,7 @@ def peek(token):
 
 
 def error():
-    global has_error
-    has_error = True
+    sys.exit(1)
 
 
 # Sets next_token, increases index

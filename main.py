@@ -16,11 +16,7 @@ def main():
         parser(array_tokens)
         print("")
 
-    if lojban_parser.has_error:
-        print("Input Error: Stopping Compling")
-        return 1
-    else:
-        print("\n\nCompiling...")
+    print("Compiling...")
 
     for statement in array2d_words:
         array_tokens = lexer(statement)

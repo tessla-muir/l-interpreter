@@ -15,13 +15,17 @@ def scanner(string):
     word = ""
     index = 0
     for char in string:
-        if char != " ":
+        if word == "d" and string[index+1] == "n":
+            word += "un"
+        elif word == "dun" and char == 'n':
+            continue
+        elif char != " ":
             word += char
+
         if index + 1 < len(string):
             # If next character is a space, or it's a keyword...
             if string[index+1] == " " or string[index+1] in keywords or word in keywords:
                 if word != "":
-                    # print(token.replace('\n', '<new line>'))
                     array.append(word.replace('\n', '<new line>'))
                     word = ""
         index += 1
@@ -49,6 +53,9 @@ def line_divider(long_array):
 
 
 def lexer(sentence_array):
+    if len(sentence_array[-1]) == 0:
+        sentence_array.pop()
+
     array = []
     for word in sentence_array:
         if contains(word, numbers):
@@ -61,6 +68,8 @@ def lexer(sentence_array):
             array.append("if")
         elif word == ",":
             array.append(",")
+        elif contains(word, logical_operations):
+            array.append("logic_op")
         else:
             if len(word) > 0:
                 array.append("var")
