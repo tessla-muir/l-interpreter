@@ -6,6 +6,7 @@ global index
 index = 0
 
 
+# Purpose of the parser is to check for valid syntax
 def parser(new_sentence):
     print("Parsing!")
     global token_sentence, next_token, index
