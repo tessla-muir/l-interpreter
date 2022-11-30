@@ -26,7 +26,9 @@ def parser(new_sentence):
 
 
 # No precedence in Lojban
-# statement:    <stmt> -> <expr> | <assignment>
+# statement:    <stmt> -> <expr> | <assignment> | <conditional>
+
+# conditional:  <conditional> -> if <logic_expr>
 
 # assignment:   <assignment> -> <var> <equal> <expr>
 
@@ -114,7 +116,6 @@ def peek(token):
         return True
     else:
         return False
-
 
 
 def error():

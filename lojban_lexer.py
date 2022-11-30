@@ -2,10 +2,11 @@
 # https://lojban.org/publications/reference_grammar/chapter18.html
 numbers = ['pa', 're', 'ci', 'vo', 'mu', 'xa', 'ze', 'bi', 'so', 'no']
 operations = ["su'i", "vu'u", "pi'i", "division"]
-equal = ["du"]
-logical_operations = ["me'i", "za'u", "na'ebo"]  # me'i is less than, za'u is more than, na'ebo is not equal
-words = ["\n"]
-keywords = numbers + operations + equal + logical_operations + words
+# me'i is less than, za'u is more than, dunli is equal, na'ebo is not equal
+logical_operations = ["me'i", "za'u", "dunli", "na'ebo"]
+words = ["\n", "du", "bai"]  # du is equal, bai is if
+symbols = ","
+keywords = numbers + operations + logical_operations + words
 
 
 # Purpose of a lexer is to send tokens (words) to the parser
@@ -54,8 +55,12 @@ def lexer(sentence_array):
             array.append("digit")
         elif contains(word, operations):
             array.append("op")
-        elif contains(word, equal):
+        elif word == "du":
             array.append("equal")
+        elif word == "bai":
+            array.append("if")
+        elif word == ",":
+            array.append(",")
         else:
             if len(word) > 0:
                 array.append("var")
