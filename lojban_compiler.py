@@ -73,14 +73,25 @@ def loop():
     # Pass by comma
     lex()
 
-    print("Loop:")
     isLoop = True
     assignment()
+
+    op = ""
+    if loop_op == "su'i":
+        op = "add"
+    elif loop_op == "vu'u":
+        op = "subtract"
+    elif loop_op == "pi'i":
+        op = "multiply by"
+    elif loop_op == "division":
+        op = "divide by"
+
+    print("Loop(" + op + " " + str(loop_num) + ") x" + str(num2-num1) + ":")
 
     j = find_index(loop_var)
     print("   Set variable " + variable_names[j] + " to " + str(variable_values[j]))
 
-    for i in range(num1, num2):
+    for i in range(num1, num2-1):
         variable_values[j] = calculate(variable_values[j], loop_num, loop_op)
         print("   Set variable " + variable_names[j] + " to " + str(variable_values[j]))
 
@@ -167,7 +178,7 @@ def calculate(num1, num2, op):
         num1 -= num2
     elif op == "pi'i":
         num1 *= num2
-    elif op == "division":
+    elif op == "fe'i":
         if num2 == 0:
             print("Error: Cannot divide by zero!")
             sys.exit(1)

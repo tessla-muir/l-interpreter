@@ -1,7 +1,7 @@
 # Keywords and symbols
 # https://lojban.org/publications/reference_grammar/chapter18.html
 numbers = ['pa', 're', 'ci', 'vo', 'mu', 'xa', 'ze', 'bi', 'so', 'no']
-operations = ["su'i", "vu'u", "pi'i", "division"]
+operations = ["su'i", "vu'u", "pi'i", "fe'i"]
 # me'i is less than, za'u is more than, du is equal, na'ebo is not equal
 logical_operations = ["me'i", "za'u", "du", "na'ebo"]
 words = ["\n", "bai", "ganfauke"]  # bai is if, ganfauke is for while loops
