@@ -5,8 +5,9 @@ variable_names = []
 global variable_values
 variable_values = []
 
-global has_error
+global has_error, isLoop
 has_error = False
+isLoop = False
 
 global token_sentence
 global next_token
@@ -20,7 +21,7 @@ index = 0
 global var_count
 var_count = 0
 
-global num1, num2, op
+global num1, num2, loop_var, loop_op, loop_num
 
 
 def compiler(sentence_tokens, sentence_lexemes):
@@ -37,7 +38,7 @@ def compiler(sentence_tokens, sentence_lexemes):
 # No precedence in Lojban
 # statement:    <stmt> -> <expr> | <assignment> | <conditional> | <loop>
 
-# loop:         <loop> -> ganfauke <logic>, <assignment>
+# loop:         <loop> -> ganfauke <number>:<number>, <assignment>
 
 # conditional:  <conditional> -> if <logic>, <statement>
 # logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
@@ -61,20 +62,29 @@ def statement():
 
 
 def loop():
-    global num1, num2, op
+    global num1, num2, isLoop
     # Pass by loop
     lex()
-    value = logic_expression()
+
+    num1 = number()
+    # Pass by colon
+    lex()
+    num2 = number()
+    # Pass by comma
     lex()
 
-    print(num1)
-    print(num2)
-    print(op)
-    print(value)
+    print("Loop:")
+    isLoop = True
+    assignment()
 
-#    while value:
-#        statement()
-#        value = logical_calculate(num1, num2, op)
+    j = find_index(loop_var)
+    print("   Set variable " + variable_names[j] + " to " + str(variable_values[j]))
+
+    for i in range(num1, num2):
+        variable_values[j] = calculate(variable_values[j], loop_num, loop_op)
+        print("   Set variable " + variable_names[j] + " to " + str(variable_values[j]))
+
+    isLoop = False
 
 
 def conditional():
@@ -88,7 +98,6 @@ def conditional():
 
 
 def logic_expression():
-    global num1, num2, op
     value = False
     num1 = factor()
 
@@ -113,12 +122,13 @@ def logical_calculate(num1, num2, op):
 
 
 def assignment():
-    global var_count
+    global var_count, loop_var
     var = next_lexeme
     num = 0
 
     if next_token == "var":
         lex()
+        loop_var = next_token
         lex()
         if next_token == "var" and peek("END"):
             return
@@ -129,17 +139,21 @@ def assignment():
 
     variable_names.append(var)
     variable_values.append(num)
-    print("Set variable " + variable_names[var_count] + " to " + str(variable_values[var_count]))
+    if not isLoop:
+        print("Set variable " + variable_names[var_count] + " to " + str(variable_values[var_count]))
     var_count += 1
 
 
 def expression():
+    global loop_op, loop_num
     num1 = factor()
 
     while next_token == "op":
         op = next_lexeme
+        loop_op = next_lexeme
         lex()
         num2 = factor()
+        loop_num = num2
         num1 = calculate(num1, num2, op)
 
     return num1

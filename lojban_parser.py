@@ -26,7 +26,7 @@ def parser(new_sentence):
 # No precedence in Lojban
 # statement:    <stmt> -> <expr> | <assignment> | <conditional> | <loop>
 
-# loop:         <loop> -> ganfauke <logic>, <assignment>
+# loop:         <loop> -> ganfauke <number>:<number>, <assignment>
 
 # conditional:  <conditional> -> if <logic>, <statement>
 # logic expr:   <logic> -> <factor> (==, !=, >=, <=) <factor>
@@ -57,7 +57,14 @@ def loop():
 
     # Pass by loop
     lex()
-    logic_expression()
+    number()
+
+    if next_token == ":":
+        # Pass by colon
+        lex()
+        number()
+    else:
+        print("Loop error: Missing colon")
 
     if next_token == ",":
         lex()
