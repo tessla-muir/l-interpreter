@@ -1,3 +1,24 @@
+# Basic numbers
+pa re ci
+pa re ci vo mu xa ze bi so no
+
+# Expressions
+mu vo su'i pa re
+so no vu'u ci pa
 pa fe'i re
-apple du pa
+
+# Variable assignment
+var1 du pa re
+var2 du var1 vu'u re
+var2 du var1 pi'i var2
+
+# If statments: true -- these will show up since the logical expression is true
+bai pa du pa, var3 du var1 fe'i pa no
+
+# If statements: false -- these just won't run, value doesn't change
+bai pa du re, var3 du no
+var3
+
+# Loop
+apple du no
 ganfauke pa:ci, apple du apple vu'u pa

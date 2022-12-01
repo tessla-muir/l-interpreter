@@ -12,6 +12,8 @@ def main():
 
     # Removes comments
     for statement in array2d_words:
+        if len(statement) == 0:
+            continue
         if statement[0] == "#":
             array2d_words.remove(statement)
 
