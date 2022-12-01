@@ -13,9 +13,9 @@ keywords = numbers + operations + logical_operations + words + symbols
 def lexer(sentence_array):
     array = []
     for word in sentence_array:
-        if contains(word, numbers):
+        if word in numbers:
             array.append("digit")
-        elif contains(word, operations):
+        elif word in operations:
             array.append("op")
         elif word == "du":
             array.append("equal")
@@ -25,7 +25,7 @@ def lexer(sentence_array):
             array.append(",")
         elif word == ":":
             array.append(":")
-        elif contains(word, logical_operations):
+        elif word in logical_operations:
             array.append("logic_op")
         elif word == "ganfauke":
             array.append("loop")
@@ -72,11 +72,4 @@ def line_divider(long_array):
     array2d.append(array)
     array = []
     return array2d
-
-
-def contains(item, array):
-    for x in array:
-        if x == item:
-            return True
-    return False
 
