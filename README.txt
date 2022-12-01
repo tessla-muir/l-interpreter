@@ -24,6 +24,7 @@ Grammar:
 
 
 Includes:
+-Allows comments starting with #
 -Expression solving
 	Includes addition, subtraction, multiplication, and divison	
 -Variable assignment
