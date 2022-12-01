@@ -26,10 +26,7 @@ def main():
         parser(array_tokens)
         print("")
 
-
-
     print("Compiling...")
-
     for statement in array2d_words:
         array_tokens = lexer(statement)
         lojban_compiler.compiler(array_tokens, statement)
