@@ -11,9 +11,6 @@ keywords = numbers + operations + logical_operations + words + symbols
 
 # Purpose of a lexer is to send tokens (words) to the parser
 def lexer(sentence_array):
-    if len(sentence_array[-1]) == 0:
-        sentence_array.pop()
-
     array = []
     for word in sentence_array:
         if contains(word, numbers):
